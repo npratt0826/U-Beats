@@ -18,16 +18,17 @@ var createSongRow = function(songNumber, songName, songLength){
          currentlyPlayingCell.html(currentlyPlayingSongNumber);
        }
        if (currentlyPlayingSongNumber !== songNumber) {
-         $(this).html(pauseButtonTemplate);
          setSong(songNumber);
          currentSoundFile.play();
          updateSeekBarWhileSongPlays();
          currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+
          var $volumeFill = $('.volume .fill');
          var $volumeThumb = $('.volume .thumb');
          $volumeFill.width(currentVolume + '%');
          $volumeThumb.css({left: currentVolume + '%'});
          updatePlayerBarSong();
+         $(this).html(pauseButtonTemplate);
 
        }
        else if (currentlyPlayingSongNumber === songNumber) {
@@ -97,6 +98,7 @@ var setCurrentAlbum = function(album){
  var setTotalTimeInPlayerBar = function(totalTime){
    var $totalTimeElement = $('.seek-control .total-time');
    $totalTimeElement.text(totalTime);
+   console.log(totalTime);
  };
 
  var filterTimeCode = function (timeInSeconds) {
@@ -283,7 +285,7 @@ var togglePlayFromPlayerbar = function() {
    $('.currently-playing .artist-name').html(currentAlbum.artist);
    $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.title + " - " + currentAlbum.artist);
    $('.main-controls .play-pause').html(playerBarPauseButton);
-   setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.length));
+   setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.duration));
  };
 
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
