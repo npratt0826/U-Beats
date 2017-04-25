@@ -18,9 +18,9 @@ var createSongRow = function(songNumber, songName, songLength){
          currentlyPlayingCell.html(currentlyPlayingSongNumber);
        }
        if (currentlyPlayingSongNumber !== songNumber) {
+         $(this).html(pauseButtonTemplate);
          setSong(songNumber);
          currentSoundFile.play();
-         $(this).html(pauseButtonTemplate);
          currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
          updatePlayerBarSong();
 
@@ -56,6 +56,7 @@ var createSongRow = function(songNumber, songName, songLength){
            songNumberCell.html(songNumber);
          }
      };
+
      $row.find('.song-item-number').click(clickHandler);
      $row.hover(onHover, offHover);
      return $row;
@@ -90,7 +91,7 @@ var setCurrentAlbum = function(album){
    currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
    currentSoundFile = new buzz.sound(currentSongFromAlbum.audioUrl, {
      formats: ['mp3'],
-     preload: true;
+     preload: true
    });
    setVolume(currentVolume);
  };
